@@ -7,6 +7,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogFrontComponent } from './dialog-front/dialog-front.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import { HttpClientModule } from '@angular/common/http';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatButtonModule,
     MatDialogModule,
     MatStepperModule,
+    HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

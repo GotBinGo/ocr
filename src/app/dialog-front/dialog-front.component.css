@@ -1,0 +1,14 @@
+.snap {
+    width: calc(50% - 20px) !important;
+    min-width: unset!important;
+    height: 59px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 26px
+  }
+
+.spinner-div {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}

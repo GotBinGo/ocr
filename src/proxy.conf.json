@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "https://s15.webtar.hu/",
+      "secure": false,
+      "pathRewrite": {
+        "^/api": ""
+      },
+      "logLevel": "debug"
+    }
+  }
+

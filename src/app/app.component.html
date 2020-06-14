@@ -15,26 +15,25 @@
 
     <div class="stepper-container">
         <mat-horizontal-stepper class="stepper" [linear]="isLinear" #stepper>
-            <mat-step [completed]="false">
+            <mat-step [completed]="firstDone">
                 <ng-template matStepLabel>Front</ng-template>
-
-bello
+                Scan the front of your card.
             </mat-step>
-            <mat-step>
+            <mat-step [completed]="secondDone">
               <form>
                 <ng-template matStepLabel>Back</ng-template>
-hello
-                <div>
+                Scan the back of your card.
+                <!-- <div>
                   <button mat-button matStepperPrevious>Back</button>
                   <button mat-button matStepperNext>Next</button>
-                </div>
+                </div> -->
               </form>
             </mat-step>
-            <mat-step>
+            <mat-step [completed]="thirdDone">
               <ng-template matStepLabel>Done</ng-template>
               <p>You are now done.</p>
               <div>
-                <button mat-button matStepperPrevious>Back</button>
+                <!-- <button mat-button matStepperPrevious>Back</button> -->
                 <button mat-button (click)="stepper.reset()">Reset</button>
               </div>
             </mat-step>

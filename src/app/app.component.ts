@@ -1,8 +1,9 @@
-import {Component, OnInit, HostListener} from '@angular/core';
+import {Component, OnInit, HostListener, ViewChild} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFrontComponent } from './dialog-front/dialog-front.component';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,11 @@ import { DialogFrontComponent } from './dialog-front/dialog-front.component';
 })
 export class AppComponent implements OnInit {
   isLinear = true;
+  firstDone = false;
+  secondDone = false;
+  thirdDone = false;
+  
+  @ViewChild('stepper') private myStepper: MatStepper;
 
   // toggle webcam on/off
   public showWebcam = true;
@@ -81,7 +87,27 @@ export class AppComponent implements OnInit {
     // console.log(this.webcamImage.imageAsDataUrl)
     const dialogRef = this.dialog.open(DialogFrontComponent, {
       width: '80%',
-      data: { image: this.webcamImage.imageAsDataUrl}
+      data: { image: this.webcamImage.imageAsDataUrl},
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!this.firstDone) {
+        this.firstDone = result;
+        setTimeout(x => {
+          if (result) {
+            this.myStepper.next();
+          }
+        });
+      } else if (!this.secondDone) {
+        this.secondDone = result;
+        setTimeout(x => {
+          if (result) {
+            this.myStepper.next();
+          }
+        });
+        this.thirdDone = result;
+      }
+
     });
   }
 
