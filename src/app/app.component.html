@@ -1,7 +1,53 @@
-<webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
-[allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
-[videoOptions]="videoOptions"
-[imageQuality]="1"
-(cameraSwitched)="cameraWasSwitched($event)"
-(initError)="handleInitError($event)"
-></webcam>
+<div style="text-align:center">
+    <div>
+      <webcam [height]="height" [width]="width" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+              [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+              [videoOptions]="videoOptions"
+              [imageQuality]="1"
+              (cameraSwitched)="cameraWasSwitched($event)"
+              (initError)="handleInitError($event)"
+      ></webcam>
+      <br/>
+    </div>
+    <div class="bottom-bar">
+        <button class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Snap</button>
+    </div>
+
+    <div class="stepper-container">
+        <mat-horizontal-stepper class="stepper" [linear]="isLinear" #stepper>
+            <mat-step [completed]="false">
+                <ng-template matStepLabel>Front</ng-template>
+
+bello
+            </mat-step>
+            <mat-step>
+              <form>
+                <ng-template matStepLabel>Back</ng-template>
+hello
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <p>You are now done.</p>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+    </div>
+</div>
+  
+  <!-- <div class="snapshot" *ngIf="webcamImage">
+    <h2>Nice one!</h2>
+    <img [src]="webcamImage.imageAsDataUrl"/>
+  </div>
+  
+  <h4 *ngIf="errors.length > 0">Messages:</h4>
+  <ul *ngFor="let error of errors">
+    <li>{{error | json}}</li>
+  </ul> -->

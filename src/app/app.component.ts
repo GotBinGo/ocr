@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogFrontComponent } from './dialog-front/dialog-front.component';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,8 @@ import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  isLinear = true;
+
   // toggle webcam on/off
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -27,11 +31,30 @@ export class AppComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
+  public width: number;
+  public height: number;
+  
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    const win = !!event ? (event.target as Window) : window;
+    this.width = win.innerWidth;
+    this.height = win.innerHeight;
+    if(this.height > 600) {
+      this.height = 600;
+    }
+  }
+
+  constructor(public dialog: MatDialog) {
+    this.onResize();
+  }
+
+
   public ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
       });
+  
   }
 
   public triggerSnapshot(): void {
@@ -55,6 +78,11 @@ export class AppComponent implements OnInit {
 
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
+    // console.log(this.webcamImage.imageAsDataUrl)
+    const dialogRef = this.dialog.open(DialogFrontComponent, {
+      width: '80%',
+      data: { image: this.webcamImage.imageAsDataUrl}
+    });
   }
 
   public cameraWasSwitched(deviceId: string): void {
