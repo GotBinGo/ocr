@@ -35,3 +35,7 @@
 .stepper {
 
 }
+
+pre {
+  max-width: 10px;
+}

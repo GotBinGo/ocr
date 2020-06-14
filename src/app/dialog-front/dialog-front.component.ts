@@ -26,11 +26,11 @@ export class DialogFrontComponent implements OnInit {
   }
 
   ok() {
-    this.dialogRef.close(true);
+    this.dialogRef.close(this.detected);
   }
 
   retake() {
-    this.dialogRef.close(false);
+    this.dialogRef.close(this.detected);
   }
 
 }

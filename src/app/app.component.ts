@@ -12,10 +12,10 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class AppComponent implements OnInit {
   isLinear = true;
-  firstDone = false;
-  secondDone = false;
-  thirdDone = false;
-  
+  firstResult = false;
+  secondResult = false;
+  thirdResult = false;
+
   @ViewChild('stepper') private myStepper: MatStepper;
 
   // toggle webcam on/off
@@ -39,6 +39,13 @@ export class AppComponent implements OnInit {
 
   public width: number;
   public height: number;
+
+  reset() {
+    this.firstResult = false;
+    this.secondResult = false;
+    this.thirdResult = false;
+    this.myStepper.reset()
+  }
   
   @HostListener('window:resize', ['$event'])
   onResize(event?: Event) {
@@ -91,21 +98,22 @@ export class AppComponent implements OnInit {
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (!this.firstDone) {
-        this.firstDone = result;
+      if (!this.firstResult) {
+        this.firstResult = result;
+        
         setTimeout(x => {
           if (result) {
             this.myStepper.next();
           }
         });
-      } else if (!this.secondDone) {
-        this.secondDone = result;
+      } else if (!this.secondResult) {
+        this.secondResult = result;
         setTimeout(x => {
           if (result) {
             this.myStepper.next();
           }
         });
-        this.thirdDone = result;
+        this.thirdResult = result;
       }
 
     });
