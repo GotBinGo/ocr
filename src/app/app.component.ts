@@ -12,9 +12,9 @@ import { MatStepper } from '@angular/material/stepper';
 })
 export class AppComponent implements OnInit {
   isLinear = true;
-  firstResult = false;
-  secondResult = false;
-  thirdResult = false;
+  firstResult = null;
+  secondResult = null;
+  thirdResult = null;
 
   @ViewChild('stepper') private myStepper: MatStepper;
 
@@ -94,22 +94,24 @@ export class AppComponent implements OnInit {
     // console.log(this.webcamImage.imageAsDataUrl)
     const dialogRef = this.dialog.open(DialogFrontComponent, {
       width: '80%',
+      maxWidth: '1000px',
       data: { image: this.webcamImage.imageAsDataUrl},
-      disableClose: true
+      disableClose: true,
+      backdropClass: 'blur-bg',
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (!this.firstResult) {
+      if (!this.firstResult || this.firstResult.err) {
         this.firstResult = result;
         
         setTimeout(x => {
-          if (result) {
+          if (result && !this.firstResult.err) {
             this.myStepper.next();
           }
         });
-      } else if (!this.secondResult) {
+      } else if (!this.secondResult || this.secondResult.err) {
         this.secondResult = result;
         setTimeout(x => {
-          if (result) {
+          if (result && !this.secondResult.err) {
             this.myStepper.next();
           }
         });

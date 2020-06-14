@@ -12,3 +12,18 @@
     justify-content: center;
     margin: 10px;
 }
+
+img {
+  max-height: 50vh;
+  height: 50%;
+  max-width: 100%;
+  width: auto;
+  display: block;
+  height: auto;
+  min-width: 100%;
+  object-fit: contain;
+}
+
+pre {
+  overflow: hidden;
+}

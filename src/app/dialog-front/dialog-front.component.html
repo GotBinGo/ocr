@@ -1,5 +1,5 @@
 <div >
-    <img style="width: 100%;" [src]="data.image"/>
+    <img [src]="data.image"/>
     <pre *ngIf="detected">{{detected | json}}</pre>
     <div class="spinner-div">
         <mat-spinner *ngIf="!detected && loading"></mat-spinner>

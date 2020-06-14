@@ -30,7 +30,7 @@ export class DialogFrontComponent implements OnInit {
   }
 
   retake() {
-    this.dialogRef.close(this.detected);
+    this.dialogRef.close(false);
   }
 
 }
