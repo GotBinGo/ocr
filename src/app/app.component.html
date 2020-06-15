@@ -18,6 +18,8 @@
             <mat-step [completed]="firstResult">
                 <ng-template matStepLabel>Front</ng-template>
                 Scan the front of your card.
+                <button mat-button (click)="save()">Save</button>
+
                 <pre *ngIf="firstResult">{{ firstResult | json }}</pre>
             </mat-step>
             <mat-step [completed]="secondResult">
@@ -38,6 +40,7 @@
               <div>
                 <!-- <button mat-button matStepperPrevious>Back</button> -->
                 <button mat-button (click)="reset()">Reset</button>
+                <button mat-button (click)="save()">Save</button>
               </div>
             </mat-step>
           </mat-horizontal-stepper>

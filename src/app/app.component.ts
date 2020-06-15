@@ -4,6 +4,8 @@ import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFrontComponent } from './dialog-front/dialog-front.component';
 import { MatStepper } from '@angular/material/stepper';
+import * as JSZip from 'jszip';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -45,6 +47,19 @@ export class AppComponent implements OnInit {
     this.secondResult = false;
     this.thirdResult = false;
     this.myStepper.reset()
+  }
+
+  save() {
+    var zip = new JSZip();
+    zip.file("front.txt", JSON.stringify(this.firstResult));
+    zip.file("back.txt", JSON.stringify(this.secondResult));
+    var img = zip.folder("images");
+    img.file("front.png", this.firstResult.detected_image, {base64: true});
+    img.file("back.png", this.secondResult.detected_image, {base64: true});
+    zip.generateAsync({type:"blob"})
+    .then(function(content) {
+      saveAs(content, "card.zip");
+    });
   }
   
   @HostListener('window:resize', ['$event'])
