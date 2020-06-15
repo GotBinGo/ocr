@@ -16,10 +16,14 @@ export class AppComponent implements OnInit {
   isLinear = true;
   firstResult = null;
   secondResult = null;
-  thirdResult = null;
+  thirdResult = null; 
+  selectedIndex = 0;
 
   @ViewChild('stepper') private myStepper: MatStepper;
 
+  stepChange(e) {
+    this.selectedIndex = e.selectedIndex;
+  }
   // toggle webcam on/off
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -51,8 +55,12 @@ export class AppComponent implements OnInit {
 
   save() {
     var zip = new JSZip();
-    zip.file("front.txt", JSON.stringify(this.firstResult));
-    zip.file("back.txt", JSON.stringify(this.secondResult));
+    let front = JSON.parse(JSON.stringify(this.firstResult));
+    let back = JSON.parse(JSON.stringify(this.secondResult));
+    delete front.detected_image;
+    delete back.detected_image;
+    zip.file("front.txt", JSON.stringify(front));
+    zip.file("back.txt", JSON.stringify(back));
     var img = zip.folder("images");
     img.file("front.png", this.firstResult.detected_image, {base64: true});
     img.file("back.png", this.secondResult.detected_image, {base64: true});
@@ -115,15 +123,14 @@ export class AppComponent implements OnInit {
       backdropClass: 'blur-bg',
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (!this.firstResult || this.firstResult.err) {
+      if (this.selectedIndex == 0) {
         this.firstResult = result;
-        
         setTimeout(x => {
           if (result && !this.firstResult.err) {
             this.myStepper.next();
           }
         });
-      } else if (!this.secondResult || this.secondResult.err) {
+      } else if (this.selectedIndex == 1) {
         this.secondResult = result;
         setTimeout(x => {
           if (result && !this.secondResult.err) {

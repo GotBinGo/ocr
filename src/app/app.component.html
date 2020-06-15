@@ -12,14 +12,11 @@
     <div class="bottom-bar">
         <button class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Snap</button>
     </div>
-
     <div class="stepper-container">
-        <mat-horizontal-stepper class="stepper" [linear]="isLinear" #stepper>
+        <mat-horizontal-stepper (selectionChange)="stepChange($event)" class="stepper" [linear]="isLinear" #stepper>
             <mat-step [completed]="firstResult">
                 <ng-template matStepLabel>Front</ng-template>
                 Scan the front of your card.
-                <button mat-button (click)="save()">Save</button>
-
                 <pre *ngIf="firstResult">{{ firstResult | json }}</pre>
             </mat-step>
             <mat-step [completed]="secondResult">
