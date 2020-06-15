@@ -30,8 +30,9 @@ export class AppComponent implements OnInit {
   public multipleWebcamsAvailable = false;
   public deviceId: string;
   public videoOptions: MediaTrackConstraints = {
-    // width: {ideal: 1024},
-    // height: {ideal: 576}
+    width: {ideal: 1920},
+    height: {ideal: 1080},
+    facingMode: 'environment'
   };
   public errors: WebcamInitError[] = [];
 
