@@ -10,20 +10,21 @@
       <br/>
     </div>
     <div class="bottom-bar">
-        <button class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Mehet</button>
+        <button *ngIf="selectedIndex !== 3" class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Mehet</button>
+        <button *ngIf="selectedIndex === 3" class="snap" mat-raised-button color="primary" (click)="save();">Letöltés</button>
     </div>
     <div class="stepper-container">
         <mat-vertical-stepper (selectionChange)="stepChange($event)" class="stepper" [linear]="isLinear" #stepper>
             <mat-step [completed]="firstResult">
                 <ng-template matStepLabel>Személyi eleje</ng-template>
                 Személyazonosító igazolvány arcképes oldala.
-                <pre *ngIf="firstResult">{{ firstResult | json }}</pre>
+                <!-- <pre *ngIf="firstResult">{{ firstResult | json }}</pre> -->
             </mat-step>
             <mat-step [completed]="secondResult">
               <form>
                 <ng-template matStepLabel>Személyi hátulja</ng-template>
                 Személyazonosító igazolvány háulsó oldala.
-                <pre *ngIf="secondResult">{{ secondResult | json }}</pre>
+                <!-- <pre *ngIf="secondResult">{{ secondResult | json }}</pre> -->
 
                 <!-- <div>
                   <button mat-button matStepperPrevious>Back</button>
@@ -35,7 +36,7 @@
               <form>
                 <ng-template matStepLabel>Lakcímkártya hátulja</ng-template>
                 Lakcímet igazoló kártya lakóhelyet jelölő oldala.
-                <pre *ngIf="thirdResult">{{ thirdResult | json }}</pre>
+                <!-- <pre *ngIf="thirdResult">{{ thirdResult | json }}</pre> -->
 
                 <!-- <div>
                   <button mat-button matStepperPrevious>Back</button>
@@ -48,8 +49,8 @@
               <p>Már készen is van.</p>
               <div>
                 <!-- <button mat-button matStepperPrevious>Back</button> -->
-                <button mat-button (click)="reset()">Újrakezdés</button>
-                <button mat-button (click)="save()">Letöltés</button>
+                <button mat-raised-button color="warn" (click)="reset()">Újrakezdés</button>
+                <!-- <button mat-button (click)="save()">Letöltés</button> -->
               </div>
             </mat-step>
           </mat-vertical-stepper>
