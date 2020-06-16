@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   firstResult = null;
   secondResult = null;
   thirdResult = null; 
+  doneResult = null;
   selectedIndex = 0;
 
   @ViewChild('stepper') private myStepper: MatStepper;
@@ -116,10 +117,18 @@ export class AppComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
     // console.log(this.webcamImage.imageAsDataUrl)
+    let card_type = ''
+    if(this.selectedIndex == 0) {
+      card_type = 'CardType.ID_CARD_FRONT'
+    } else if(this.selectedIndex == 1) {
+      card_type = 'CardType.ID_CARD_BACK'
+    } else if(this.selectedIndex == 2) {
+      card_type = 'CardType.ADDRESS_CARD'
+    }
     const dialogRef = this.dialog.open(DialogFrontComponent, {
-      width: '80%',
+      width: '90%',
       maxWidth: '1000px',
-      data: { image: this.webcamImage.imageAsDataUrl},
+      data: { image: this.webcamImage.imageAsDataUrl, card_type},
       disableClose: true,
       backdropClass: 'blur-bg',
     });
@@ -138,7 +147,15 @@ export class AppComponent implements OnInit {
             this.myStepper.next();
           }
         });
+      }
+      else if (this.selectedIndex == 2) {
         this.thirdResult = result;
+        setTimeout(x => {
+          if (result && !this.thirdResult.err) {
+            this.myStepper.next();
+          }
+        });
+        this.doneResult = result;
       }
 
     });

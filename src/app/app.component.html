@@ -10,19 +10,19 @@
       <br/>
     </div>
     <div class="bottom-bar">
-        <button class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Snap</button>
+        <button class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Mehet</button>
     </div>
     <div class="stepper-container">
-        <mat-horizontal-stepper (selectionChange)="stepChange($event)" class="stepper" [linear]="isLinear" #stepper>
+        <mat-vertical-stepper (selectionChange)="stepChange($event)" class="stepper" [linear]="isLinear" #stepper>
             <mat-step [completed]="firstResult">
-                <ng-template matStepLabel>Front</ng-template>
-                Scan the front of your card.
+                <ng-template matStepLabel>Személyi eleje</ng-template>
+                Személyazonosító igazolvány arcképes oldala.
                 <pre *ngIf="firstResult">{{ firstResult | json }}</pre>
             </mat-step>
             <mat-step [completed]="secondResult">
               <form>
-                <ng-template matStepLabel>Back</ng-template>
-                Scan the back of your card.
+                <ng-template matStepLabel>Személyi hátulja</ng-template>
+                Személyazonosító igazolvány háulsó oldala.
                 <pre *ngIf="secondResult">{{ secondResult | json }}</pre>
 
                 <!-- <div>
@@ -32,15 +32,27 @@
               </form>
             </mat-step>
             <mat-step [completed]="thirdResult">
-              <ng-template matStepLabel>Done</ng-template>
-              <p>You are now done.</p>
+              <form>
+                <ng-template matStepLabel>Lakcímkártya hátulja</ng-template>
+                Lakcímet igazoló kártya lakóhelyet jelölő oldala.
+                <pre *ngIf="thirdResult">{{ thirdResult | json }}</pre>
+
+                <!-- <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div> -->
+              </form>
+            </mat-step>
+            <mat-step [completed]="doneResult">
+              <ng-template matStepLabel>Kész</ng-template>
+              <p>Már készen is van.</p>
               <div>
                 <!-- <button mat-button matStepperPrevious>Back</button> -->
-                <button mat-button (click)="reset()">Reset</button>
-                <button mat-button (click)="save()">Save</button>
+                <button mat-button (click)="reset()">Újrakezdés</button>
+                <button mat-button (click)="save()">Letöltés</button>
               </div>
             </mat-step>
-          </mat-horizontal-stepper>
+          </mat-vertical-stepper>
     </div>
 </div>
   

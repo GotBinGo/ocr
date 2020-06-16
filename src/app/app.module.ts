@@ -9,6 +9,7 @@ import { DialogFrontComponent } from './dialog-front/dialog-front.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatStepperModule,
     HttpClientModule,
     MatProgressSpinnerModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

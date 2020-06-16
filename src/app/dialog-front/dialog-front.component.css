@@ -14,7 +14,7 @@
 }
 
 img {
-  max-height: 50vh;
+  max-height: 30vh;
   height: 50%;
   max-width: 100%;
   width: auto;
@@ -26,4 +26,16 @@ img {
 
 pre {
   overflow: hidden;
+}
+
+mat-header-row {
+  display: none;
+}
+
+mat-cell {
+  overflow: scroll;
+}
+
+.table {
+  margin-bottom: 20px;
 }

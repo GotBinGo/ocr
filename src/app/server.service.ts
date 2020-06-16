@@ -8,8 +8,8 @@ export class ServerService {
 
   constructor(private http: HttpClient) { }
 
-  sendImage(img) {
+  sendImage(img, card_type) {
     img = img.split(',')[1];
-    return this.http.post('api/ocr', {img}, {});
+    return this.http.post('api/ocr', {img, card_type}, {});
   }
 }

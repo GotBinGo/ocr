@@ -1,9 +1,40 @@
+
+<mat-dialog-content>
+
 <div >
     <img [src]="data.image"/>
-    <pre *ngIf="detected">{{detected | json}}</pre>
+    <!-- <pre *ngIf="detected">{{detected | json}}</pre> -->
     <div class="spinner-div">
         <mat-spinner *ngIf="!detected && loading"></mat-spinner>
+        <div *ngIf="detected && detected.err">
+            <h1>
+                Nem található a megfelelő kártya.
+            </h1>
+        </div>
     </div>
-    <button class="snap" mat-raised-button color="warn" (click)="retake();">Retake</button>
-    <button class="snap" mat-raised-button color="primary" [disabled]="!detected || detected.err" (click)="ok();">Ok</button>
+
+    <div *ngIf="detected && !detected.err">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8 table">
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="value">
+              <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.value}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+
+    </div>
+
+    <button class="snap" mat-raised-button color="warn" (click)="retake();">Újra</button>
+    <button class="snap" mat-raised-button color="primary" [disabled]="!detected || detected.err" (click)="ok();">Rendben</button>
 </div>
+</mat-dialog-content>
