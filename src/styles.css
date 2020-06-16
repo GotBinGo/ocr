@@ -6,3 +6,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .blur-bg {
     backdrop-filter: blur(12px);
 }
+
+video {
+    max-height: 50vh;
+}
