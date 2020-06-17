@@ -1,30 +1,36 @@
 <html>
     <head>
         <script type="text/javascript" src="https://stuk.github.io/jszip/dist/jszip.js"></script>
+    <script>
+        window.onload = function () {
+        window.addEventListener("message", displayMessage, false);
+        function displayMessage (evt) {
+            console.log(evt.data)
+            blob = evt.data;
+            const fileName = 'card.zip'
+            if (navigator.msSaveBlob) { // IE11 and Edge 17-
+                navigator.msSaveBlob(blob, fileName)
+            } else { // every other browser
+                const reader = new FileReader()
+                reader.onloadend = () => {
+                    const a = document.createElement('a');
+                    a.href = reader.result
+                    a.style.display = 'none'
+                    a.download = fileName
+                    // a.onclick = x => { console.log('HELLO LINK CLICK'); x.preventDefault(); }
+                    a.target = '_blank'
+                    document.body.appendChild(a)
+                    a.click()
+                    a.parentNode.removeChild(a)
+                }
+                reader.readAsDataURL(blob)
+            }
+        }
+        console.log('frame set up')
+    }
+    </script>
     </head>
 <body>
-    <script>
-            var zip = new JSZip();
-    zip.generateAsync({ type: "blob" })
-      .then(function (blob) {
-        const fileName = 'card.zip'
-        if (navigator.msSaveBlob) { // IE11 and Edge 17-
-          navigator.msSaveBlob(blob, fileName)
-        } else { // every other browser
-          const reader = new FileReader()
-          reader.onloadend = () => {
-            const a = document.createElement('a');
-            a.href = reader.result
-            a.style.display = 'none'
-            a.download = fileName
-            // a.onclick = x => { console.log('HELLO LINK CLICK'); x.preventDefault(); }
-            a.target = '_blank'
-            document.body.appendChild(a)
-            a.click()
-            a.parentNode.removeChild(a)
-          }
-          reader.readAsDataURL(blob)
-        }});
-    </script>
+    
 </body>
 </html>

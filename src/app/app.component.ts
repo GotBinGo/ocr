@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
   doneResult = null;
   selectedIndex = 0;
 
-  mentFrame = false;
-
   @ViewChild('stepper') private myStepper: MatStepper;
   @ViewChild('webcam') private webcam: WebCamComponent ;
 
@@ -58,30 +56,40 @@ export class AppComponent implements OnInit {
   }
 
   save2() {
+    console.log('post')
+
+
     var zip = new JSZip();
     zip.generateAsync({ type: "blob" })
       .then(function (blob) {
+        console.log('genned zip')
+        // window.postMessage('df', "*");
+        const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
+        iframeWin.postMessage(blob, '*');
+
+
+        // window.postMessage(blob, "*");
 
         // saveAs(blob, "card.zip");
 
-        const fileName = 'card.zip'
-        if (navigator.msSaveBlob) { // IE11 and Edge 17-
-          navigator.msSaveBlob(blob, fileName)
-        } else { // every other browser
-          const reader = new FileReader()
-          reader.onloadend = () => {
-            const a = document.createElement('a') as any;
-            a.href = reader.result
-            a.style.display = 'none'
-            a.download = fileName
-            // a.onclick = x => { console.log('HELLO LINK CLICK'); x.preventDefault(); }
-            a.target = '_blank'
-            document.body.appendChild(a)
-            a.click()
-            a.parentNode.removeChild(a)
-          }
-          reader.readAsDataURL(blob)
-        }
+        // const fileName = 'card.zip'
+        // if (navigator.msSaveBlob) { // IE11 and Edge 17-
+        //   navigator.msSaveBlob(blob, fileName)
+        // } else { // every other browser
+        //   const reader = new FileReader()
+        //   reader.onloadend = () => {
+        //     const a = document.createElement('a') as any;
+        //     a.href = reader.result
+        //     a.style.display = 'none'
+        //     a.download = fileName
+        //     // a.onclick = x => { console.log('HELLO LINK CLICK'); x.preventDefault(); }
+        //     a.target = '_blank'
+        //     document.body.appendChild(a)
+        //     a.click()
+        //     a.parentNode.removeChild(a)
+        //   }
+        //   reader.readAsDataURL(blob)
+        // }
 
         // window.open(URL.createObjectURL(blob), '_blank')
 
@@ -95,6 +103,8 @@ export class AppComponent implements OnInit {
         //   }, 10) as any;
         // };
         // reader.readAsBinaryString(blob);
+
+
       });
   }
 
@@ -139,16 +149,19 @@ export class AppComponent implements OnInit {
     //     reader.readAsDataURL(blob)
     // }
 
-    var reader = new FileReader() as any;
-    reader.onload = function(e) {
-       var bdata = btoa(reader.result);
-       var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
-       window.open(datauri);
-       let newWindow = setTimeout(function() {
-           newWindow.document.title = 'card.zip';
-       }, 10) as any;
-    };
-    reader.readAsBinaryString(blob);
+    const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
+    iframeWin.postMessage(blob, '*');
+
+    // var reader = new FileReader() as any;
+    // reader.onload = function(e) {
+    //    var bdata = btoa(reader.result);
+    //    var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
+    //    window.open(datauri);
+    //    let newWindow = setTimeout(function() {
+    //        newWindow.document.title = 'card.zip';
+    //    }, 10) as any;
+    // };
+    // reader.readAsBinaryString(blob);
     });
   }
   
