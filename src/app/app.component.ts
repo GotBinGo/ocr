@@ -63,13 +63,16 @@ export class AppComponent implements OnInit {
     delete front.detected_image;
     delete back.detected_image;
     delete address.detected_image;
+    delete front.originalImage;
+    delete back.originalImage;
+    delete address.originalImage;
     zip.file("ID_front.txt", JSON.stringify(front));
     zip.file("ID_back.txt", JSON.stringify(back));
     zip.file("ADDRESS_back.txt", JSON.stringify(address));
     var img = zip.folder("images");
-    img.file("ID_front.png", this.firstResult.originalImage, {base64: true});
-    img.file("ID_back.png", this.secondResult.originalImage, {base64: true});
-    img.file("ADDRESS_back.png", this.thirdResult.originalImage, {base64: true});
+    img.file("ID_front.png", this.firstResult.originalImage.split(',')[1], {base64: true});
+    img.file("ID_back.png", this.secondResult.originalImage.split(',')[1], {base64: true});
+    img.file("ADDRESS_back.png", this.thirdResult.originalImage.split(',')[1], {base64: true});
     zip.generateAsync({type:"blob"})
     .then(function(content) {
       saveAs(content, "card.zip");
@@ -90,6 +93,7 @@ export class AppComponent implements OnInit {
   }
 
   get options() {
+    this._options.video = this.videoOptions;
     return this._options;
   }
 
