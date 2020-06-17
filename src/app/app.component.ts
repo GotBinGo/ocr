@@ -74,9 +74,25 @@ export class AppComponent implements OnInit {
     img.file("ID_back.png", this.secondResult.originalImage.split(',')[1], {base64: true});
     img.file("ADDRESS_back.png", this.thirdResult.originalImage.split(',')[1], {base64: true});
     zip.generateAsync({type:"blob"})
-    .then(function(content) {
+    .then(function(blob) {
       // saveAs(content, "card.zip");
-      window.open(URL.createObjectURL(content), '_blank')
+      // window.open(URL.createObjectURL(content), '_blank')
+      const fileName = 'card.zip'
+    if (navigator.msSaveBlob) { // IE11 and Edge 17-
+        navigator.msSaveBlob(blob, fileName)
+    } else { // every other browser
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            const a = document.createElement('a') as any;
+            a.href = reader.result
+            a.style.display = 'none'
+            a.download = fileName
+            document.body.appendChild(a)
+            a.click()
+            a.parentNode.removeChild(a)
+        }
+        reader.readAsDataURL(blob)
+    }
     });
   }
   
