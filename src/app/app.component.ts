@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
   doneResult = null;
   selectedIndex = 0;
 
+  showCam = false;
+
   @ViewChild('stepper') private myStepper: MatStepper;
   @ViewChild('webcam') private webcam: WebCamComponent ;
 
@@ -36,7 +38,7 @@ export class AppComponent implements OnInit {
   public videoOptions: MediaTrackConstraints = {
     width: {ideal: 1920},
     height: {ideal: 1080},
-    facingMode: 'environment'
+    facingMode: 'environment',
   };
   public errors: WebcamInitError[] = [];
 
