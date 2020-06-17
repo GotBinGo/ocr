@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
   doneResult = null;
   selectedIndex = 0;
 
+  mentFrame = false;
+
   @ViewChild('stepper') private myStepper: MatStepper;
   @ViewChild('webcam') private webcam: WebCamComponent ;
 
@@ -59,6 +61,7 @@ export class AppComponent implements OnInit {
     var zip = new JSZip();
     zip.generateAsync({ type: "blob" })
       .then(function (blob) {
+
         // saveAs(blob, "card.zip");
 
         const fileName = 'card.zip'
