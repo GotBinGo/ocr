@@ -59,13 +59,17 @@ export class AppComponent implements OnInit {
     var zip = new JSZip();
     let front = JSON.parse(JSON.stringify(this.firstResult));
     let back = JSON.parse(JSON.stringify(this.secondResult));
+    let address = JSON.parse(JSON.stringify(this.thirdResult));
     delete front.detected_image;
     delete back.detected_image;
-    zip.file("front.txt", JSON.stringify(front));
-    zip.file("back.txt", JSON.stringify(back));
+    delete address.detected_image;
+    zip.file("ID_front.txt", JSON.stringify(front));
+    zip.file("ID_back.txt", JSON.stringify(back));
+    zip.file("ADDRESS_back.txt", JSON.stringify(address));
     var img = zip.folder("images");
-    img.file("front.png", this.firstResult.detected_image, {base64: true});
-    img.file("back.png", this.secondResult.detected_image, {base64: true});
+    img.file("ID_front.png", this.firstResult.detected_image, {base64: true});
+    img.file("ID_back.png", this.secondResult.detected_image, {base64: true});
+    img.file("ADDRESS_back.png", this.thirdResult.detected_image, {base64: true});
     zip.generateAsync({type:"blob"})
     .then(function(content) {
       saveAs(content, "card.zip");
