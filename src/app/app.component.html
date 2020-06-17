@@ -29,7 +29,6 @@
                 <!-- <pre *ngIf="firstResult">{{ firstResult | json }}</pre> -->
             </mat-step>
             <mat-step [completed]="secondResult">
-              <form>
                 <ng-template matStepLabel>Személyi hátulja</ng-template>
                 Személyazonosító igazolvány háulsó oldala.
                 <!-- <pre *ngIf="secondResult">{{ secondResult | json }}</pre> -->
@@ -38,10 +37,8 @@
                   <button mat-button matStepperPrevious>Back</button>
                   <button mat-button matStepperNext>Next</button>
                 </div> -->
-              </form>
             </mat-step>
             <mat-step [completed]="thirdResult">
-              <form>
                 <ng-template matStepLabel>Lakcímkártya hátulja</ng-template>
                 Lakcímet igazoló kártya lakóhelyet jelölő oldala.
                 <!-- <pre *ngIf="thirdResult">{{ thirdResult | json }}</pre> -->
@@ -50,7 +47,6 @@
                   <button mat-button matStepperPrevious>Back</button>
                   <button mat-button matStepperNext>Next</button>
                 </div> -->
-              </form>
             </mat-step>
             <mat-step [completed]="doneResult">
               <ng-template matStepLabel>Kész</ng-template>
