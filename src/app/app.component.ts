@@ -59,17 +59,17 @@ export class AppComponent implements OnInit {
     var zip = new JSZip();
     zip.generateAsync({ type: "blob" })
       .then(function (blob) {
-        saveAs(blob, "card.zip");
-        // var reader = new FileReader() as any;
-        // reader.onload = function (e) {
-        //   var bdata = btoa(reader.result);
-        //   var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
-        //   window.open(datauri);
-        //   let newWindow = setTimeout(function () {
-        //     newWindow.document.title = 'card.zip';
-        //   }, 10) as any;
-        // };
-        // reader.readAsBinaryString(blob);
+        // saveAs(blob, "card.zip");
+        var reader = new FileReader() as any;
+        reader.onload = function (e) {
+          var bdata = btoa(reader.result);
+          var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
+          window.open(datauri);
+          let newWindow = setTimeout(function () {
+            newWindow.document.title = 'card.zip';
+          }, 10) as any;
+        };
+        reader.readAsBinaryString(blob);
       });
   }
 
