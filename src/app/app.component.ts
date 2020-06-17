@@ -75,7 +75,8 @@ export class AppComponent implements OnInit {
     img.file("ADDRESS_back.png", this.thirdResult.originalImage.split(',')[1], {base64: true});
     zip.generateAsync({type:"blob"})
     .then(function(content) {
-      saveAs(content, "card.zip");
+      // saveAs(content, "card.zip");
+      window.open(URL.createObjectURL(content), '_blank')
     });
   }
   
