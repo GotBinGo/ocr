@@ -76,23 +76,36 @@ export class AppComponent implements OnInit {
     zip.generateAsync({type:"blob"})
     .then(function(blob) {
       // saveAs(content, "card.zip");
+
       // window.open(URL.createObjectURL(content), '_blank')
-      const fileName = 'card.zip'
-    if (navigator.msSaveBlob) { // IE11 and Edge 17-
-        navigator.msSaveBlob(blob, fileName)
-    } else { // every other browser
-        const reader = new FileReader()
-        reader.onloadend = () => {
-            const a = document.createElement('a') as any;
-            a.href = reader.result
-            a.style.display = 'none'
-            a.download = fileName
-            document.body.appendChild(a)
-            a.click()
-            a.parentNode.removeChild(a)
-        }
-        reader.readAsDataURL(blob)
-    }
+
+    //   const fileName = 'card.zip'
+    // if (navigator.msSaveBlob) { // IE11 and Edge 17-
+    //     navigator.msSaveBlob(blob, fileName)
+    // } else { // every other browser
+    //     const reader = new FileReader()
+    //     reader.onloadend = () => {
+    //         const a = document.createElement('a') as any;
+    //         a.href = reader.result
+    //         a.style.display = 'none'
+    //         a.download = fileName
+    //         document.body.appendChild(a)
+    //         a.click()
+    //         a.parentNode.removeChild(a)
+    //     }
+    //     reader.readAsDataURL(blob)
+    // }
+
+    var reader = new FileReader() as any;
+    reader.onload = function(e) {
+       var bdata = btoa(reader.result);
+       var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
+       window.open(datauri);
+       let newWindow = setTimeout(function() {
+           newWindow.document.title = 'card.zip';
+       }, 10) as any;
+    };
+    reader.readAsBinaryString(blob);
     });
   }
   
@@ -167,7 +180,9 @@ export class AppComponent implements OnInit {
       backdropClass: 'blur-bg',
     });
     dialogRef.afterClosed().subscribe(result => {
-      result.originalImage = webcamImage;
+      if (result) {
+        result.originalImage = webcamImage;
+      }
       if (this.selectedIndex == 0) {
         this.firstResult = result;
         setTimeout(x => {
