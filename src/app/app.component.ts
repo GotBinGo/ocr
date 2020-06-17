@@ -67,9 +67,9 @@ export class AppComponent implements OnInit {
     zip.file("ID_back.txt", JSON.stringify(back));
     zip.file("ADDRESS_back.txt", JSON.stringify(address));
     var img = zip.folder("images");
-    img.file("ID_front.png", this.firstResult.detected_image, {base64: true});
-    img.file("ID_back.png", this.secondResult.detected_image, {base64: true});
-    img.file("ADDRESS_back.png", this.thirdResult.detected_image, {base64: true});
+    img.file("ID_front.png", this.firstResult.originalImage, {base64: true});
+    img.file("ID_back.png", this.secondResult.originalImage, {base64: true});
+    img.file("ADDRESS_back.png", this.thirdResult.originalImage, {base64: true});
     zip.generateAsync({type:"blob"})
     .then(function(content) {
       saveAs(content, "card.zip");
@@ -146,6 +146,7 @@ export class AppComponent implements OnInit {
       backdropClass: 'blur-bg',
     });
     dialogRef.afterClosed().subscribe(result => {
+      result.originalImage = webcamImage;
       if (this.selectedIndex == 0) {
         this.firstResult = result;
         setTimeout(x => {
