@@ -33,7 +33,7 @@ mat-header-row {
 }
 
 mat-cell {
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .table {

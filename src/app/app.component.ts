@@ -6,6 +6,7 @@ import { DialogFrontComponent } from './dialog-front/dialog-front.component';
 import { MatStepper } from '@angular/material/stepper';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { WebCamComponent } from 'ack-angular-webcam';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  _options: any = {};
   isLinear = true;
   firstResult = null;
   secondResult = null;
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
   selectedIndex = 0;
 
   @ViewChild('stepper') private myStepper: MatStepper;
+  @ViewChild('webcam') private webcam: WebCamComponent ;
 
   stepChange(e) {
     this.selectedIndex = e.selectedIndex;
@@ -36,9 +39,6 @@ export class AppComponent implements OnInit {
     facingMode: 'environment'
   };
   public errors: WebcamInitError[] = [];
-
-  // latest snapshot
-  public webcamImage: WebcamImage = null;
 
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
@@ -84,6 +84,13 @@ export class AppComponent implements OnInit {
     if(this.height > 600) {
       this.height = 600;
     }
+    this.options.width = this.width;
+    this.options.height = this.height;
+
+  }
+
+  get options() {
+    return this._options;
   }
 
   constructor(public dialog: MatDialog) {
@@ -100,7 +107,10 @@ export class AppComponent implements OnInit {
   }
 
   public triggerSnapshot(): void {
-    this.trigger.next();
+    this.handleImage(this.webcam.getCanvas().toDataURL());
+    // this.webcam.getCanvas().toDataURL().then(x => {
+    // });
+    // this.trigger.next();
   }
 
   public toggleWebcam(): void {
@@ -118,8 +128,7 @@ export class AppComponent implements OnInit {
     this.nextWebcam.next(directionOrDeviceId);
   }
 
-  public handleImage(webcamImage: WebcamImage): void {
-    this.webcamImage = webcamImage;
+  public handleImage(webcamImage: any): void {
     // console.log(this.webcamImage.imageAsDataUrl)
     let card_type = ''
     if(this.selectedIndex == 0) {
@@ -132,7 +141,7 @@ export class AppComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogFrontComponent, {
       width: '90%',
       maxWidth: '1000px',
-      data: { image: this.webcamImage.imageAsDataUrl, card_type},
+      data: { image: webcamImage, card_type},
       disableClose: true,
       backdropClass: 'blur-bg',
     });
