@@ -2,7 +2,7 @@
 <mat-dialog-content>
 
 <div >
-    <img [src]="data.image"/>
+    <img *ngIf="image" [src]="image"/>
     <!-- <pre *ngIf="detected">{{detected | json}}</pre> -->
     <div class="spinner-div">
         <mat-spinner *ngIf="!detected && loading"></mat-spinner>

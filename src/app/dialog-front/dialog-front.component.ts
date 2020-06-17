@@ -22,6 +22,7 @@ export class DialogFrontComponent implements OnInit {
 
   ngOnInit(): void {
     this.serverService.sendImage(this.data.image, this.data.card_type).subscribe((x: any) => {
+      this.image = 'data:image/png;base64,' + x.detected_image;
       this.detected = x;
       this.dataSource = [];
       if(x.card_type == 'CardType.ID_CARD_FRONT') {
