@@ -22,8 +22,6 @@ export class AppComponent implements OnInit {
   doneResult = null;
   selectedIndex = 0;
 
-  showCam = false;
-
   @ViewChild('stepper') private myStepper: MatStepper;
   @ViewChild('webcam') private webcam: WebCamComponent ;
 

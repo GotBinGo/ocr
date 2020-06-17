@@ -7,9 +7,8 @@
               (cameraSwitched)="cameraWasSwitched($event)"
               (initError)="handleInitError($event)"
       ></webcam> -->
-      <button class="snap" style="margin: 10px" mat-raised-button color="warn" *ngIf="!showCam" (click)="showCam = true">Kamera Bekapcsolása</button>
 
-      <ack-webcam *ngIf="showCam"
+      <ack-webcam
   #webcam
   [options]="options"
   [reflect]="false"

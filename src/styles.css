@@ -9,6 +9,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 video {
     max-height: 40vh;
-    object-fit: cover;
+    /* object-fit: cover; */
     max-width: 850px;
 }
