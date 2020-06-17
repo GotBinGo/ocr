@@ -18,6 +18,7 @@
     </div>
     <div class="bottom-bar">
         <button *ngIf="selectedIndex !== 3" class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Mehet</button>
+        <button *ngIf="selectedIndex !== 3" class="snap" mat-raised-button color="primary" (click)="save2();">Ment</button>
         <button *ngIf="selectedIndex === 3" class="snap" mat-raised-button color="primary" (click)="save();">Letöltés</button>
     </div>
     <div class="stepper-container">
