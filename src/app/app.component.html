@@ -20,6 +20,10 @@
       <iframe style="display: none;" id="downFrame" src="assets/frame.html"></iframe>
     </div>
     <div class="bottom-bar">
+        <button *ngIf="selectedIndex === 3 && downloading" class="snap" mat-raised-button color="primary">
+          <mat-spinner color="accent" diameter="40" ></mat-spinner>
+        </button>
+
         <button *ngIf="selectedIndex !== 3" class="snap" mat-raised-button color="primary" (click)="triggerSnapshot();">Mehet</button>
         <button *ngIf="selectedIndex === 3 && !downloading" class="snap" mat-raised-button color="primary" (click)="save();">Letöltés</button>
     </div>

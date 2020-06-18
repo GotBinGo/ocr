@@ -12,3 +12,7 @@ video {
     object-fit: cover;
     max-width: 850px;
 }
+
+button circle {
+    stroke: white !important;
+}
