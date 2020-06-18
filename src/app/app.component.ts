@@ -58,6 +58,7 @@ export class AppComponent implements OnInit {
 
   save2() {
     this.downloading = true;
+    console.log('started')
 
 
     var zip = new JSZip();
@@ -66,6 +67,8 @@ export class AppComponent implements OnInit {
         const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
         iframeWin.postMessage(blob, '*');
         this.downloading = false;
+        console.log('zip done')
+
 
 
         // window.postMessage(blob, "*");
