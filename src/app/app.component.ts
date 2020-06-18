@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
     img.file("ID_back.png", this.secondResult.originalImage.split(',')[1], {base64: true});
     img.file("ADDRESS_back.png", this.thirdResult.originalImage.split(',')[1], {base64: true});
     zip.generateAsync({type:"blob"})
-    .then(function(blob) {
+    .then((blob) => {
       this.downloading = false;
       console.log('zip done')
       const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
