@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   thirdResult = null; 
   doneResult = null;
   selectedIndex = 0;
+  downloading = false;
 
   @ViewChild('stepper') private myStepper: MatStepper;
   @ViewChild('webcam') private webcam: WebCamComponent ;
@@ -56,16 +57,15 @@ export class AppComponent implements OnInit {
   }
 
   save2() {
-    console.log('post')
+    this.downloading = true;
 
 
     var zip = new JSZip();
     zip.generateAsync({ type: "blob" })
       .then(function (blob) {
-        console.log('genned zip')
-        // window.postMessage('df', "*");
         const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
         iframeWin.postMessage(blob, '*');
+        this.downloading = false;
 
 
         // window.postMessage(blob, "*");
