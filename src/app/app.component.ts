@@ -56,62 +56,10 @@ export class AppComponent implements OnInit {
     this.myStepper.reset()
   }
 
-  save2() {
+  save() {
     this.downloading = true;
     console.log('started')
 
-
-    var zip = new JSZip();
-    zip.generateAsync({ type: "blob" })
-      .then(function (blob) {
-        const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
-        iframeWin.postMessage(blob, '*');
-        this.downloading = false;
-        console.log('zip done')
-
-
-
-        // window.postMessage(blob, "*");
-
-        // saveAs(blob, "card.zip");
-
-        // const fileName = 'card.zip'
-        // if (navigator.msSaveBlob) { // IE11 and Edge 17-
-        //   navigator.msSaveBlob(blob, fileName)
-        // } else { // every other browser
-        //   const reader = new FileReader()
-        //   reader.onloadend = () => {
-        //     const a = document.createElement('a') as any;
-        //     a.href = reader.result
-        //     a.style.display = 'none'
-        //     a.download = fileName
-        //     // a.onclick = x => { console.log('HELLO LINK CLICK'); x.preventDefault(); }
-        //     a.target = '_blank'
-        //     document.body.appendChild(a)
-        //     a.click()
-        //     a.parentNode.removeChild(a)
-        //   }
-        //   reader.readAsDataURL(blob)
-        // }
-
-        // window.open(URL.createObjectURL(blob), '_blank')
-
-        // var reader = new FileReader() as any;
-        // reader.onload = function (e) {
-        //   var bdata = btoa(reader.result);
-        //   var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
-        //   window.open(datauri);
-        //   let newWindow = setTimeout(function () {
-        //     newWindow.document.title = 'card.zip';
-        //   }, 10) as any;
-        // };
-        // reader.readAsBinaryString(blob);
-
-
-      });
-  }
-
-  save() {
     var zip = new JSZip();
     let front = JSON.parse(JSON.stringify(this.firstResult));
     let back = JSON.parse(JSON.stringify(this.secondResult));
@@ -131,40 +79,10 @@ export class AppComponent implements OnInit {
     img.file("ADDRESS_back.png", this.thirdResult.originalImage.split(',')[1], {base64: true});
     zip.generateAsync({type:"blob"})
     .then(function(blob) {
-      // saveAs(content, "card.zip");
-
-      // window.open(URL.createObjectURL(content), '_blank')
-
-    //   const fileName = 'card.zip'
-    // if (navigator.msSaveBlob) { // IE11 and Edge 17-
-    //     navigator.msSaveBlob(blob, fileName)
-    // } else { // every other browser
-    //     const reader = new FileReader()
-    //     reader.onloadend = () => {
-    //         const a = document.createElement('a') as any;
-    //         a.href = reader.result
-    //         a.style.display = 'none'
-    //         a.download = fileName
-    //         document.body.appendChild(a)
-    //         a.click()
-    //         a.parentNode.removeChild(a)
-    //     }
-    //     reader.readAsDataURL(blob)
-    // }
-
-    const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
-    iframeWin.postMessage(blob, '*');
-
-    // var reader = new FileReader() as any;
-    // reader.onload = function(e) {
-    //    var bdata = btoa(reader.result);
-    //    var datauri = 'data:' + 'application/zip' + ';base64,' + bdata;
-    //    window.open(datauri);
-    //    let newWindow = setTimeout(function() {
-    //        newWindow.document.title = 'card.zip';
-    //    }, 10) as any;
-    // };
-    // reader.readAsBinaryString(blob);
+      this.downloading = false;
+      console.log('zip done')
+      const iframeWin = (document.getElementById("downFrame") as any).contentWindow;
+      iframeWin.postMessage(blob, '*');
     });
   }
   
