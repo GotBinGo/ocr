@@ -23,7 +23,7 @@
     "@angular/router": "~9.1.11",
     "ack-angular-webcam": "^1.10.0",
     "file-saver": "^2.0.2",
-    "jszip": "^3.5.0",
+    "jszip": "^3.8.0",
     "ngx-webcam": "^0.3.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
